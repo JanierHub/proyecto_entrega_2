@@ -67,3 +67,16 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: "Error al actualizar publicación" });
   }
 });
+
+// Eliminar publicación
+router.delete("/:id", async (req, res) => {
+  try {
+    await Post.findByIdAndDelete(req.params.id);
+    res.json({ message: "Publicación eliminada correctamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al eliminar publicación" });
+  }
+});
+
+module.exports = router;
