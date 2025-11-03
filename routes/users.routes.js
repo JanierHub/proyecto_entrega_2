@@ -34,3 +34,17 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Error al obtener usuarios" });
   }
 });
+
+// Actualizar usuario
+router.put("/:id", async (req, res) => {
+  try {
+    const data = { ...req.body };
+    // No permitir actualizar contraseña directamente aquí (o si se permite, insertar lógica de hash)
+    if (data.contraseña) delete data.contraseña;
+    await User.findByIdAndUpdate(req.params.id, data, { new: true });
+    res.json({ message: "Usuario actualizado correctamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al actualizar usuario" });
+  }
+});
