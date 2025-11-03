@@ -17,3 +17,12 @@ router.post("/", async (req, res) => {
     res.status(500).json({ error: "Error al crear categoría" });
   }
 });
+// Listar categorías
+router.get("/", async (req, res) => {
+  try {
+    const categories = await Category.find();
+    res.json(categories);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener categorías" });
+  }
+});
