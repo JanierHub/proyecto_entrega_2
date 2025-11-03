@@ -13,7 +13,7 @@ app.use(express.json());
 app.use("/articles", articlesRoutes);
 
 // 🔗 Conexión a MongoDB Atlas
-mongoose.connect("mongodb+srv://javierdb_user:1234Javier@cluster0.1apiaxm.mongodb.net/articulosDB?retryWrites=true&w=majority&appName=Cluster0
+mongoose.connect("mongodb+srv://javierdb_user:1234Javier@cluster0.1apiaxm.mongodb.net/foroKL?retryWrites=true&w=majority&appName=Cluster0
 ")
   .then(() => console.log("✅ Conectado a MongoDB Atlas"))
   .catch(err => console.error("❌ Error al conectar a MongoDB:", err));
