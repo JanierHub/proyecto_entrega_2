@@ -42,3 +42,28 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Error al obtener publicaciones" });
   }
 });
+
+// Obtener una publicación
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id).populate("autor", "nombre correo rol").populate("categoria", "nombre descripcion");
+    if (!post) return res.status(404).json({ error: "Publicación no encontrada" });
+    res.json(post);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al obtener publicación" });
+  }
+});
+
+// Actualizar publicación
+router.put("/:id", async (req, res) => {
+  try {
+    const data = req.body;
+    if (data.autor) delete data.autor; // no permitir cambiar autor aquí
+    await Post.findByIdAndUpdate(req.params.id, data, { new: true });
+    res.json({ message: "Publicación actualizada correctamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error al actualizar publicación" });
+  }
+});
